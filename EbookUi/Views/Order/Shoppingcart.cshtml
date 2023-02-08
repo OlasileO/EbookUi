@@ -1,0 +1,61 @@
+﻿@model EbookUi.Models.ShoppingCartVm
+@{
+    ViewData["Title"] = "Shopping cart summary";
+}
+<div class="row">
+    <div class="col-md-8 offset-2">
+        <div class="text-center">
+            <h2>Your shopping cart summary</h2>
+        </div>
+        <table class="table table-striped table-dark">
+            <tr>
+                <td>Selected amount</td>
+                <td>Book</td>
+                <td>Price</td>
+                <td>Subtotal</td>
+                <td> Action</td>
+            </tr>
+            <tbody>
+                @foreach (var item in Model.shoppingcart.shoppingCartItems)
+                {
+                    <tr>
+                        <td class="align-middle">@item.Quatity</td>
+                        <td class="align-middle">@item.Book.BookName</td>
+                        <td class="align-middle">@item.Book.price</td>
+                        <td class="align-middle">@((item.Quatity*item.Book.price).ToString("c"))</td>
+                        <td class="align-middle">
+                            <a asp-controller="Order" asp-action="RemoveItemFrmShoppingcart" asp-route-id="@item.Book.Id">
+                                <i class="bi bi-cart-dash"></i>
+                            </a>
+                            <a asp-controller="Order" asp-action="AddItemshoppincart" asp-route-id="@item.Book.Id">
+                                <i class="bi bi-cart-plus"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2"></td>
+                    <td><b>Total : </b></td>
+                    <td>@Model.shoppingCartTotal.ToString("c")</td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+        <div class="text-center">
+            <div class="btn-group">
+                @if (User.Identity.IsAuthenticated)
+                {
+                   
+                <a class="btn btn-outline-primary" asp-action="CompleteOrder">
+                    Complete Order
+                </a>
+                }
+                <a class="btn btn-outline-success" asp-controller="Book" asp-action="Index">
+                    Add more items
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,47 @@
+﻿@model List<Ebook_Model.Order>
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="row">
+    <div class="col-md-10 offset-1">
+        <p>
+            <h4>List of all orders</h4>
+        </p>
+        <table class="table table-striped table-dark">
+            <thead>
+                <tr class="text-center">
+                    <td>Order Id</td>
+                    <td>Item</td>
+                    <td>Total</td>
+                    <td>OrderStatus</td>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in Model)
+                {
+                    <tr class="text-center">
+                        <td class="align-middle">@order.Id</td>
+                        <td class="align-middle">
+                            <ul style="list-style-type:none">
+                                @foreach (var item in order.OrderDetails)
+                                {
+                                    <li>
+                                        <div>
+                                          @item.Price.ToString("c") - @item.Book.BookName
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </td>
+
+                        <td class="align-middle">@order.OrderDetails.Select(n => n.Book.price* n.Quatity).Sum().ToString("c")</td>
+                        <td class="align-middle">@order.OrderStatus.StatusName</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+

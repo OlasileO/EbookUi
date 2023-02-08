@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Ebook_Model.Book>
+@{
+    ViewData["Title"] = "AllBook";
+}
+
+<div class="container pt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <a class="btn btn-dark" asp-action="Create">Add more</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Book</h3>
+            <table class="table table-striped table-dark">
+                <thead>
+                    <tr class="text-center">
+                        <th>BookName</th>
+                        <th>Price</th>
+                        <th>Isbn</th>
+                        <th>TotalPages</th>
+                        <th>Image</th>
+                        <th>Genre</th>
+                        <th>Author</th>
+                        <th>Publisher</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.BookName</td>
+                            <td>@item.price</td>
+                            <td>@item.Isbn</td>
+                            <td>@item.TotalPages</td>
+                            <td>
+                                <img class="rounded img-fluid" src="@item.Image" alt="@item.BookName"
+                                 style="max-width:150px; height:50px">
+                            </td>
+                            <td>@item.Genre.GenreName</td>
+                            <td>@item.Author.AuthorName</td>
+                            <td>@item.Publisher.PublisherName</td>
+                            <td>
+                                <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                                <a class="btn btn-danger" onclick="return window.confirm('Are you sure?')" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

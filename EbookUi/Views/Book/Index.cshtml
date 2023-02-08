@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Ebook_Model.Book>
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<div class="w-100 d-flex flex-wrap mt-4">
+    @foreach (var book in Model)
+    {
+
+        <div class="card m-1 mt-3" style="width: 25rem;">
+
+            <img style="width:100%; height:200px"
+             src="@book.Image" class="card-img-top" alt="@book.BookName">
+            <div class="card-body">
+                <h5 class="card-title"><b>@book.BookName</b></h5>
+                <p class="card-text">
+                    <b>Author</b> :
+                    @book.Author.AuthorName
+                </p>
+                <p class="card-text">
+                    <b>Genre</b> :
+                    @book.Genre.GenreName
+                </p>
+                <div class="card-footer">
+                    <p class="card-text">
+                        <a class="btn btn-primary" asp-controller="Order" asp-action="AddItemshoppincart" asp-route-id="@book.Id">
+
+
+                            <i class="bi bi-cart-plus"></i> Add to Cart(Price @book.price.ToString("c"))
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
